@@ -7,34 +7,35 @@ import os.path
 import Image
 
 import sys
-WIDTH,HEIGHT = sys.argv[1].split('x')
-WIDTH,HEIGHT = int(WIDTH),int(HEIGHT)
+WIDTH, HEIGHT = sys.argv[1].split('x')
+WIDTH, HEIGHT = int(WIDTH), int(HEIGHT)
 
+path_root = './raw/'
 l = 'jpg', 'jpeg', 'png'
 
-l = [glob.glob('*.' + n) for n in l]
+l = [glob.glob('%s*.%s' % (path_root, n)) for n in l]
 imgs = []
 for ll in l:
     for n in ll:
         imgs.append(n)
 
 
-for n in imgs:
-    print(n)
-    if 'info' in n:
-        n_out = n.split('info')[1]
+for file_path in imgs:
+    _, file_name = os.path.split(file_path)
+    if 'info' in file_name:
+        n_out = file_name.split('info')[1]
     else:
-        n_out = n
-    p_out = '../resize/raw_resize_%s.png' % n_out
+        n_out = file_name
+    p_out = './resize/raw_resize_%s.png' % n_out
     if os.path.exists(p_out):
         continue
 
-    i = Image.open(n)
+    i = Image.open(file_path)
     w, h = i.size
-    if n.startswith('middle_'):
+    if file_name.startswith('middle_'):
         a = (h - w * HEIGHT / WIDTH) / 2
         i2 = i.crop((0, a, w, h - a))
-    elif n.startswith('bottom_'):
+    elif file_name.startswith('bottom_'):
         a = (h - w * HEIGHT / WIDTH) / 2
         i2 = i.crop((0, 2 * a, w, h))
     else:
@@ -43,7 +44,7 @@ for n in imgs:
     i3.save(p_out, 'PNG', quality=100)
     continue
 
-    i = scipy.misc.imread(n)
+    i = scipy.misc.imread(file_path)
     a, b, c = i.shape
     i1 = i[:b * HEIGHT / WIDTH]
     print(i1.shape)
