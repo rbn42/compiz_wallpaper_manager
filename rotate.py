@@ -1,3 +1,16 @@
+#!/usr/bin/env python
+# -*- coding: UTF-8 -*-
+"""
+Greet
+
+Usage:
+  main.py <input_root>  <output_root> (left|right)  
+  main.py -h | --help
+
+Options:
+  -h --help     Show this screen.
+"""
+
 import os.path
 import glob
 import scipy.misc
@@ -19,15 +32,9 @@ def f(p_src, p_dst, left=False):
     #    i=scipy.misc.imrotate(i,90)
         scipy.misc.imsave(p_dst + n, i)
 
-p_src = './resize/'
-p_dst = './resize_rotate/'
-f(p_src, p_dst)
-p_src = './raw_/'
-f(p_src, p_dst)
+from docopt import docopt
+arguments = docopt(__doc__)
 
-
-p_src = './resize/'
-p_dst = './resize_rotate_left/'
-f(p_src, p_dst, left=True)
-p_src = './raw_/'
-f(p_src, p_dst, left=True)
+input_root = arguments['<input_root>'] + '/'
+output_root = arguments['<output_root>'] + '/'
+f(input_root, output_root, left=arguments['left'])

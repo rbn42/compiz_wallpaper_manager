@@ -1,19 +1,31 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
-#import numpy as np
-#import scipy.misc
+"""
+Greet
+
+Usage:
+  main.py <input_root> <output_root> <size>
+  main.py -h | --help
+
+Options:
+  -h --help     Show this screen.
+"""
+from docopt import docopt
+arguments = docopt(__doc__)
+input_root = arguments['<input_root>']
+output_root = arguments['<output_root>']
+
 import glob
 import os.path
 import Image
 
-import sys
-WIDTH, HEIGHT = sys.argv[1].split('x')
+WIDTH, HEIGHT = arguments['<size>'].split('x')
 WIDTH, HEIGHT = int(WIDTH), int(HEIGHT)
 
-path_root = './raw/'
+path_root = input_root
 l = 'jpg', 'jpeg', 'png'
 
-l = [glob.glob('%s*.%s' % (path_root, n)) for n in l]
+l = [glob.glob('%s/*.%s' % (path_root, n)) for n in l]
 imgs = []
 for ll in l:
     for n in ll:
@@ -26,7 +38,7 @@ for file_path in imgs:
         n_out = file_name.split('info')[1]
     else:
         n_out = file_name
-    p_out = './resize/raw_resize_%s.png' % n_out
+    p_out = '%s/raw_resize_%s.png' % (output_root, n_out)
     if os.path.exists(p_out):
         continue
 
