@@ -12,8 +12,8 @@ Options:
 """
 from docopt import docopt
 arguments = docopt(__doc__)
-input_root = arguments['<input_root>']
-output_root = arguments['<output_root>']
+input_root = arguments['<input_root>'] + '/'
+output_root = arguments['<output_root>'] + '/'
 
 import glob
 import os.path
