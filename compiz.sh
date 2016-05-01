@@ -1,3 +1,4 @@
+#!/bin/bash 
 #crontab -e
 #* * * * *   bash ~/Pictures/compiz/bin/compiz.sh
 
