@@ -51,7 +51,11 @@ for file_path in imgs:
         a = (h - w * HEIGHT / WIDTH) / 2
         i2 = i.crop((0, 2 * a, w, h))
     else:
-        i2 = i.crop((0, 0, w, w * HEIGHT / WIDTH))
+        try:
+            i2 = i.crop((0, 0, w, w * HEIGHT / WIDTH))
+        except:
+            print(file_path)
+            a = 1 / 0
     i3 = i2.resize((WIDTH, HEIGHT), Image.ANTIALIAS)
     i3.save(p_out, 'PNG', quality=100)
     continue
