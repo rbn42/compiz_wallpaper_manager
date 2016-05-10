@@ -1,39 +1,30 @@
-import glob
-import random
-import os
-import sys
 import config
 from compiz_wallpaper import getconfig
+import execute
+
 
 if not config.COMPIZ_ALONE:
-    def f(key, val):
-        cmd = 'dconf write /org/compiz/profiles/unity/plugins/wallpaper/%s "%s"'
-        cmd = cmd % (key, val)
-        print(cmd)
-
-    IMAGES_MAX = 1  # eval(sys.argv[1].replace('x', '*'))o
-    try:
-        IMAGES_MAX = eval(sys.argv[1].replace('x', '*'))
-    except:
-        pass
-
-    _map = getconfig(IMAGES_MAX)
-
-    for n in _map:
-        v = _map[n]
-        f(n, v)
-
-    # compiz wallpaper
-    imgs = _map['bg-image']
-
-    # hsetroot
-    print('DISPLAY=:0 hsetroot -fill "%s"' % imgs[0])
+    DCONF_ROOT = 'dconf write /org/compiz/profiles/unity/plugins/wallpaper/%s "%s"'
+    cmd_getsize_h = 'dconf read /org/compiz/profiles/unity/plugins/core/hsize'
+    cmd_getsize_v = 'dconf read /org/compiz/profiles/unity/plugins/core/vsize'
 else:
-    import compiz_config
-    h, v = compiz_config.getSize()
-    _map = getconfig(h * v)
-    for n, v in _map.items():
-        n = 's0_' + n
-        v = ''.join(['%s;' % i for i in v])
-        config['wallpaper'][n] = v
-        #print(n + '=' + v)
+    DCONF_ROOT = 'dconf write /org/compiz/profiles/Default/plugins/wallpaper/%s "%s"'
+    cmd_getsize_h = 'dconf read /org/compiz/profiles/Default/plugins/core/hsize'
+    cmd_getsize_v = 'dconf read /org/compiz/profiles/Default/plugins/core/vsize'
+
+
+def f(key, val):
+    cmd = DCONF_ROOT % (key, val)
+    print(cmd)
+
+h = execute.execute_and_output(cmd_getsize_h)
+v = execute.execute_and_output(cmd_getsize_v)
+h, v = int(h if len(h) > 0 else 1), int(v if len(v) > 0 else 1)
+_map = getconfig(h * v)
+for n in _map:
+    v = _map[n]
+    f(n, v)
+# compiz wallpaper
+imgs = _map['bg-image']
+# hsetroot
+print('DISPLAY=:0 hsetroot -fill "%s"' % imgs[0])
