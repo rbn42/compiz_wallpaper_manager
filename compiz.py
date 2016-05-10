@@ -2,41 +2,38 @@ import glob
 import random
 import os
 import sys
-IMAGES_MAX =1 # eval(sys.argv[1].replace('x', '*'))o
-try:
-    IMAGES_MAX = eval(sys.argv[1].replace('x', '*'))
-except:
-    pass
+import config
+from compiz_wallpaper import getconfig
 
-#find images
-exts = 'jpg', 'jpeg', 'png','gif'
-if os.path.exists('mark_rotate_normal'):
-    l = [glob.glob('./raw_*.' + n) for n in exts]
-    l += [glob.glob('./resize/*.' + n) for n in exts]
-elif os.path.exists('mark_rotate_right'):
-    l = [glob.glob('./resize_rotate/*.' + n) for n in exts]
-elif os.path.exists('mark_rotate_left'):
-    l = [glob.glob('./resize_rotate_left/*.' + n) for n in exts]
-imgs = []
-for ll in l:
-    for n in ll:
-        n = os.path.abspath(n)
-        imgs.append(n)
-random.shuffle(imgs)
-imgs = imgs[:IMAGES_MAX]
+if not config.COMPIZ_ALONE:
+    def f(key, val):
+        cmd = 'dconf write /org/compiz/profiles/unity/plugins/wallpaper/%s "%s"'
+        cmd = cmd % (key, val)
+        print(cmd)
 
-def f(key, val):
-    cmd = 'dconf write /org/compiz/profiles/unity/plugins/wallpaper/%s "%s"'
-    cmd = cmd % (key, val)
-    print(cmd)
+    IMAGES_MAX = 1  # eval(sys.argv[1].replace('x', '*'))o
+    try:
+        IMAGES_MAX = eval(sys.argv[1].replace('x', '*'))
+    except:
+        pass
 
-#compiz wallpaper
-f("bg-color1", ['#000000ff'] * len(imgs))
-f("bg-color2", ['#000000ff'] * len(imgs))
-f("bg-fill-type", [0] * len(imgs))
-f("bg-image", imgs)
-f("bg-image-pos", [0] * len(imgs))
-f("cycle-wallpapers", "false")
+    _map = getconfig(IMAGES_MAX)
 
-#hsetroot
-print('DISPLAY=:0 hsetroot -fill "%s"' % imgs[0])
+    for n in _map:
+        v = _map[n]
+        f(n, v)
+
+    # compiz wallpaper
+    imgs = _map['bg-image']
+
+    # hsetroot
+    print('DISPLAY=:0 hsetroot -fill "%s"' % imgs[0])
+else:
+    import compiz_config
+    h, v = compiz_config.getSize()
+    _map = getconfig(h * v)
+    for n, v in _map.items():
+        n = 's0_' + n
+        v = ''.join(['%s;' % i for i in v])
+        config['wallpaper'][n] = v
+        #print(n + '=' + v)
