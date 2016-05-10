@@ -1,1 +1,1 @@
-COMPIZ_ALONE = True
+COMPIZ_ALONE = False
