@@ -8,7 +8,7 @@ def getconfig(num=1):
     # find images
     exts = 'jpg', 'jpeg', 'png', 'gif'
     if os.path.exists('mark_rotate_normal'):
-        l = [glob.glob('./raw_*.' + n) for n in exts]
+        l = [glob.glob('./raw_/*.' + n) for n in exts]
         l += [glob.glob('./resize/*.' + n) for n in exts]
     elif os.path.exists('mark_rotate_right'):
         l = [glob.glob('./resize_rotate/*.' + n) for n in exts]
