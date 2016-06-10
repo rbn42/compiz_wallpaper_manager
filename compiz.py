@@ -27,4 +27,4 @@ for n in _map:
 # compiz wallpaper
 imgs = _map['bg-image']
 # hsetroot
-print('DISPLAY=:0 hsetroot -fill "%s"' % imgs[0])
+#print('DISPLAY=:0 hsetroot -fill "%s"' % imgs[0])
