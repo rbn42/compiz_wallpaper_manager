@@ -17,7 +17,7 @@ output_root = arguments['<output_root>'] + '/'
 
 import glob
 import os.path
-import Image
+from PIL import Image
 
 WIDTH, HEIGHT = arguments['<size>'].split('x')
 WIDTH, HEIGHT = int(WIDTH), int(HEIGHT)
