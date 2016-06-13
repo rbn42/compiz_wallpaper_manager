@@ -8,5 +8,8 @@ PID=$(pgrep gnome-session)
 
 #加载壁纸
 cd ~/Pictures/compiz/  #根目录
+
 python ./bin/compiz.py | bash
 
+#compiz0.8用
+python ~/git/compiz_config/main.py ~/.config/compiz/compizconfig/Default.ini submit

@@ -1,1 +1,2 @@
 COMPIZ_ALONE = False
+COMPIZ0_8 = True
