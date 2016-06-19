@@ -46,16 +46,22 @@ for file_path in imgs:
     w, h = i.size
     if file_name.startswith('middle_'):
         a = (h - w * HEIGHT / WIDTH) / 2
-        i2 = i.crop((0, a, w, h - a))
+        _crop = (0, a, w, h - a)
     elif file_name.startswith('bottom_'):
         a = (h - w * HEIGHT / WIDTH) / 2
-        i2 = i.crop((0, 2 * a, w, h))
+        _crop = (0, 2 * a, w, h)
+    elif w * HEIGHT > h * WIDTH:
+        a = (w - h * WIDTH / HEIGHT) / 2
+        _crop = (a,  0, w - a, h)
     else:
-        try:
-            i2 = i.crop((0, 0, w, w * HEIGHT / WIDTH))
-        except:
-            print(file_path)
-            a = 1 / 0
+        # top_
+        _crop = (0, 0, w, w * HEIGHT / WIDTH)
+
+    try:
+        i2 = i.crop(_crop)
+    except:
+        print(file_path)
+        a = 1 / 0
     i3 = i2.resize((WIDTH, HEIGHT), Image.ANTIALIAS)
     i3.save(p_out, 'PNG', quality=100)
     continue
