@@ -43,6 +43,12 @@ for file_path in imgs:
         continue
 
     i = Image.open(file_path)
+
+    preserve = 1  # 消除边缘，有些图可能边缘有问题
+    w, h = i.size
+    w, h = w - 2, h - 2
+    i = i.crop((1, 1, w, h))
+
     w, h = i.size
     if file_name.startswith('middle_'):
         a = (h - w * HEIGHT / WIDTH) / 2
