@@ -1,0 +1,36 @@
+compiz的wallpaper插件可以为不同的工作区设置不同壁纸,不过手动设置很麻烦,所以我写了点脚本.下面是设置方法.
+* 准备
+1.安装依赖
+#+BEGIN_EXAMPLE
+    sudo apt-get install -y compiz-plugins-extra compizconfig-settings-manager
+    sudo apt-get install -y python-pil python-numpy python-scipy 
+    sudo apt install dconf-editor -y
+#+END_EXAMPLE
+2.打开ccsm,搜索wallpaper,在前面打上勾,然后最好注销重新登入.
+#+BEGIN_EXAMPLE
+    ccsm
+#+END_EXAMPLE
+* 安装
+0.把本目录下载到~/Pictures/compiz/bin/.如果要配置到其他目录,需要改动下[[compiz.sh]]\\
+1.把图片放入~/Pictures/compiz/raw/目录,脚本会自动调整图片分辨率;或者放入
+~/Pictures/compit/raw\_/目录,不调整分辨率直接使用.\\
+2.修改[[setup.sh]]中的分辨率\\
+3.运行
+#+BEGIN_EXAMPLE
+    cd ~/Pictures/compiz/
+    bash bin/setup.sh 
+#+END_EXAMPLE
+* 随机变换壁纸
+把[[compiz.sh]]加入到crontab
+#+BEGIN_EXAMPLE
+    crontab -e
+    */10 * * * *   bash ~/Pictures/compiz/bin/compiz.sh
+#+END_EXAMPLE
+* 旋转屏幕
+#+BEGIN_EXAMPLE
+    ~/bin/rot.sh normal  
+    ~/bin/rot.sh left  
+    ~/bin/rot.sh right  
+#+END_EXAMPLE
+1.可以把这些命令加入到[[https://github.com/rbn42/home/blob/master/config/rofi/rofi-2.runcache][~/.cache/rofi-2.runcache文件]],配合rofi使用.\\
+2.[[https://github.com/rbn42/home/blob/master/bin/rot.sh][~/bin/rot.sh的范例]].
