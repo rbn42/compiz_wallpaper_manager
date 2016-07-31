@@ -4,6 +4,7 @@
 
 #壁纸目录
 export ROOT=~/Pictures/compiz
+source ~/.wallpaperrc
 
 #加载壁纸
 python $(dirname "$0")/compiz.py $ROOT | bash
