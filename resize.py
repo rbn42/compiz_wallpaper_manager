@@ -47,7 +47,12 @@ for file_path in imgs:
     preserve = 1  # 消除边缘，有些图可能边缘有问题
     w, h = i.size
     w, h = w - 2, h - 2
-    i = i.crop((1, 1, w, h))
+
+    try:
+        i = i.crop((1, 1, w, h))
+    except:
+        print('error:%s' % file_path)
+        a = 1 / 0
 
     w, h = i.size
     if file_name.startswith('middle_'):

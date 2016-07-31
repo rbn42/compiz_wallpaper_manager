@@ -4,16 +4,16 @@ import os
 import sys
 
 
-def getconfig(num=1):
+def getconfig(num=1, root='.'):
     # find images
     exts = 'jpg', 'jpeg', 'png', 'gif'
-    if os.path.exists('mark_rotate_normal'):
-        l = [glob.glob('./raw_/*.' + n) for n in exts]
-        l += [glob.glob('./resize/*.' + n) for n in exts]
-    elif os.path.exists('mark_rotate_right'):
-        l = [glob.glob('./resize_rotate/*.' + n) for n in exts]
-    elif os.path.exists('mark_rotate_left'):
-        l = [glob.glob('./resize_rotate_left/*.' + n) for n in exts]
+    if os.path.exists(root + '/mark_rotate_normal'):
+        l = [glob.glob(root + '/raw_/*.' + n) for n in exts]
+        l += [glob.glob(root + '/resize/*.' + n) for n in exts]
+    elif os.path.exists(root + '/mark_rotate_right'):
+        l = [glob.glob(root + '/resize_rotate/*.' + n) for n in exts]
+    elif os.path.exists(root + '/mark_rotate_left'):
+        l = [glob.glob(root + '/resize_rotate_left/*.' + n) for n in exts]
     imgs = []
     for ll in l:
         for n in ll:
