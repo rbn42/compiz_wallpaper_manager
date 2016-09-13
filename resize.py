@@ -44,7 +44,7 @@ for file_path in imgs:
     img = img[:, :, :3]
     x, y, z = img.shape
     mean = np.mean(img) / 256.0
-    topleftmean = np.mean(img[int(x / 2), int(y / 2)]) / 256.0
+    topleftmean = np.mean(img[:int(x / 2), :int(y / 2)]) / 256.0
     p_out = '{root}/raw_resize_{name}[mean_{mean}][topleftmean_{topleftmean}].png'.format(
             root=output_root,
             name=n_out,
