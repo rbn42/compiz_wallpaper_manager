@@ -11,6 +11,8 @@ Options:
   -h --help     Show this screen.
 """
 from docopt import docopt
+import scipy.misc
+import numpy as np
 arguments = docopt(__doc__)
 input_root = arguments['<input_root>'] + '/'
 output_root = arguments['<output_root>'] + '/'
@@ -38,7 +40,13 @@ for file_path in imgs:
         n_out = file_name.split('info')[1]
     else:
         n_out = file_name
-    p_out = '%s/raw_resize_%s.png' % (output_root, n_out)
+    img = scipy.misc.imread(file_path)
+    img = img[:, :, :3]
+    mean = np.mean(img) / 256.0
+    p_out = '{root}/raw_resize_{name}[mean_{mean}].png'.format(
+            root=output_root,
+            name=n_out,
+            mean=mean)
     if os.path.exists(p_out):
         continue
 
