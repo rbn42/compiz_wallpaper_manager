@@ -42,11 +42,14 @@ for file_path in imgs:
         n_out = file_name
     img = scipy.misc.imread(file_path)
     img = img[:, :, :3]
+    x, y, z = img.shape
     mean = np.mean(img) / 256.0
-    p_out = '{root}/raw_resize_{name}[mean_{mean}].png'.format(
+    topleftmean = np.mean(img[int(x / 2), int(y / 2)]) / 256.0
+    p_out = '{root}/raw_resize_{name}[mean_{mean}][topleftmean_{topleftmean}].png'.format(
             root=output_root,
             name=n_out,
-            mean=mean)
+            mean=mean,
+            topleftmean=topleftmean)
     if os.path.exists(p_out):
         continue
 
