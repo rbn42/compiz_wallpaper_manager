@@ -3,6 +3,7 @@ from compiz_wallpaper import getconfig
 import os.path
 import execute
 import sys
+import shlex
 
 
 if config.COMPIZ_ALONE:
@@ -30,7 +31,7 @@ def f(key, val):
                 count += 1
                 p_shortcut = '%s/%0.3d%s' % (SHORTCUT_ROOT2,
                                              count, os.path.splitext(path)[1])
-                print('ln -s "%s" %s' % (path, p_shortcut))
+                print('ln -s %s %s' % (shlex.quote(path), p_shortcut))
                 #print('cp "%s" %s' % (path, p_shortcut))
                 shortcuts.append(p_shortcut)
             val = shortcuts

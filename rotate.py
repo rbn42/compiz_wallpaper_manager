@@ -15,15 +15,21 @@ import os.path
 import glob
 import scipy.misc
 import numpy as np
+import json
 
 
 def f(p_src, p_dst, left=False):
     if not os.path.exists(p_src):
         return
+    existed_files = {json.loads(os.path.splitext(n)[0])[
+        'name'] for n in os.listdir(p_dst)}
     for n in os.listdir(p_src):
-        print(n)
-        if os.path.exists(p_dst + n):
+        _json = os.path.splitext(n)[0]
+        o = json.loads(_json)
+        name = o['name']
+        if name in existed_files:
             continue
+        print(n)
         i = scipy.misc.imread(p_src + n)
         i = np.rollaxis(i, 1)
         if left:
