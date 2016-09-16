@@ -20,13 +20,19 @@ for filename in sys.argv[1:]:
     info = imginfo.load(filename)
 
     if 'mean' not in info:
-        img, width, height = load_img(filename)
+        img, height, width = load_img(filename)
         mean = np.mean(img) / 256.0
         info['mean'] = mean
 
     if 'topleftmean' not in info:
-        img, width, height = load_img(filename)
-        topleftmean = np.mean(img[:int(width / 2), :int(height / 2)]) / 256.0
+        img, height, width = load_img(filename)
+        topleftmean = np.mean(img[:int(height / 2), :int(width / 2)]) / 256.0
         info['topleftmean'] = topleftmean
+
+    key = 'top10mean'
+    if key not in info:
+        img, height, width = load_img(filename)
+        value = np.mean(img[:int(height / 10)]) / 256.0
+        info[key] = value
 
     imginfo.save(filename, info)
