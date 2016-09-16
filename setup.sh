@@ -16,4 +16,6 @@ python ./bin/rotate.py ./resize ./resize_rotate_left left
 #python ./bin/rotate.py ./raw_ ./resize_rotate right
 #python ./bin/rotate.py ./raw_ ./resize_rotate_left left
 
+ python bin/add_info.py resize*/*.png
+                  
 ./bin/compiz.sh

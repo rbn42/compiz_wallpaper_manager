@@ -12,7 +12,6 @@ Options:
 """
 from docopt import docopt
 import scipy.misc
-import json
 import numpy as np
 arguments = docopt(__doc__)
 input_root = arguments['<input_root>'] + '/'
@@ -34,8 +33,6 @@ for ll in l:
     for n in ll:
         imgs.append(n)
 
-existed_files = {json.loads(os.path.splitext(n)[0])[
-    'name'] for n in os.listdir(output_root)}
 
 for file_path in imgs:
     _, file_name = os.path.split(file_path)
@@ -43,12 +40,9 @@ for file_path in imgs:
         n_out = file_name.split('info')[1]
     else:
         n_out = file_name
-
-    if n_out in existed_files:
-        continue
-
-    n_out = json.dumps({'name': n_out, 'resize': True})
     p_out = '%s/%s.png' % (output_root, n_out)
+    if os.path.exists(p_out):
+        continue
 
     i = Image.open(file_path)
 
