@@ -35,4 +35,12 @@ for filename in sys.argv[1:]:
         value = np.mean(img[:int(height / 10)]) / 256.0
         info[key] = value
 
+    key = 'top10center'
+    if key not in info:
+        img, height, width = load_img(filename)
+        value = np.mean(
+            img[:int(height / 10),
+                int(width / 4):int(width * 3 / 4)]) / 256.0
+        info[key] = value
+
     imginfo.save(filename, info)
