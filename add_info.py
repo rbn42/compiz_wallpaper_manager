@@ -29,11 +29,12 @@ for filename in sys.argv[1:]:
         topleftmean = np.mean(img[:int(height / 2), :int(width / 2)]) / 256.0
         info['topleftmean'] = topleftmean
 
-    key = 'top10mean'
-    if key not in info:
-        img, height, width = load_img(filename)
-        value = np.mean(img[:int(height / 10)]) / 256.0
-        info[key] = value
+    keys = 'top10mean', 'top10'
+    for key in keys:
+        if key not in info:
+            img, height, width = load_img(filename)
+            value = np.mean(img[:int(height / 10)]) / 256.0
+            info[key] = value
 
     key = 'top10center'
     if key not in info:
