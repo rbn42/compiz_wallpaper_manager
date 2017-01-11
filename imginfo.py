@@ -11,6 +11,7 @@ def save(filename, info):
 
 def load(filename):
     path = filename + '.json'
+    path = os.path.expanduser(path)
     if os.path.exists(path):
         with open(path) as f:
             s = f.read()

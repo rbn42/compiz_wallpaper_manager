@@ -48,10 +48,15 @@ for file_path in imgs:
 
     preserve = 1  # 消除边缘，有些图可能边缘有问题
     w, h = i.size
-    w, h = w - 2, h - 2
+    x, y, w, h = 1, 1, w - 2, h - 2
+
+    import imginfo
+    o = imginfo.load('~/config/rc/wallpapers')
+    x1, y1, x2, y2 = o.get(file_name, {}).get('crop', [x, y, x + w, y + h])
+    x, y, w, h = x1, y1, x2 - x1, y2 - y1
 
     try:
-        i = i.crop((1, 1, w, h))
+        i = i.crop((x, y, w, h))
     except:
         print('error:%s' % file_path)
         a = 1 / 0

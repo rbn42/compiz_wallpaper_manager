@@ -23,6 +23,8 @@ def f(p_src, p_dst, left=False):
     for n in os.listdir(p_src):
         if os.path.exists(p_dst + n):
             continue
+        if n.endswith('.json'):
+            continue
         print(n)
         i = scipy.misc.imread(p_src + n)
         i = np.rollaxis(i, 1)
