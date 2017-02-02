@@ -31,6 +31,10 @@ def f(p_src, p_dst, left=False):
         if left:
             i = np.rot90(i)
             i = np.rot90(i)
+        import imginfo
+        o = imginfo.load('~/config/rc/wallpapers')
+        if o.get(n, {}).get('rotate_flip', False):
+            i = np.flipud(i)
     #    i=scipy.misc.imrotate(i,90)
         scipy.misc.imsave(p_dst + n, i)
 
