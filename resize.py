@@ -51,7 +51,8 @@ for file_path in imgs:
     x, y, w, h = 1, 1, w - 2, h - 2
 
     import imginfo
-    o = imginfo.load('~/config/rc/wallpapers')
+    from config import CONFIG_FILE
+    o = imginfo.load(CONFIG_FILE)
     x1, y1, x2, y2 = o.get(file_name, {}).get('crop', [x, y, x + w, y + h])
     x, y, w, h = x1, y1, x2 - x1, y2 - y1
 
