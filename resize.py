@@ -63,32 +63,32 @@ for file_path in imgs:
         a = 1 / 0
 
     w, h = i.size
+    # TODO 兼容下横屏竖屏的图片
+    target_width, target_height = WIDTH, HEIGHT
     if file_name.startswith('middle_'):
-        a = (h - w * HEIGHT / WIDTH) / 2
+        a = (h - w * target_height / target_width) / 2
         _crop = (0, a, w, h - a)
     elif file_name.startswith('bottom_'):
-        a = (h - w * HEIGHT / WIDTH) / 2
+        a = (h - w * target_height / target_width) / 2
         _crop = (0, 2 * a, w, h)
-    elif w * HEIGHT > h * WIDTH:
-        a = (w - h * WIDTH / HEIGHT) / 2
+    elif w * target_height > h * target_width:
+        a = (w - h * target_width / target_height) / 2
         _crop = (a,  0, w - a, h)
     else:
         # top_
-        _crop = (0, 0, w, w * HEIGHT / WIDTH)
+        _crop = (0, 0, w, w * target_height / target_width)
 
     try:
         i2 = i.crop(_crop)
     except:
         print(file_path)
         a = 1 / 0
-    i3 = i2.resize((WIDTH, HEIGHT), Image.ANTIALIAS)
+    i3 = i2.resize((target_width, target_height), Image.ANTIALIAS)
     i3.save(p_out, 'PNG', quality=100)
     continue
 
-    i = scipy.misc.imread(file_path)
-    a, b, c = i.shape
-    i1 = i[:b * HEIGHT / WIDTH]
-    print(i1.shape)
-    i2 = scipy.misc.imresize(i1, (HEIGHT, WIDTH), 'cubic')
-    print(i2.shape)
-    scipy.misc.imsave(p_out, i2)
+    #i = scipy.misc.imread(file_path)
+    #a, b, c = i.shape
+    #i1 = i[:b * target_height/ target_width]
+    #i2 = scipy.misc.imresize(i1, (HEIGHT, WIDTH), 'cubic')
+    #scipy.misc.imsave(p_out, i2)
