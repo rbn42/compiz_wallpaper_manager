@@ -12,8 +12,11 @@ import sys
 def load_img(path):
     print('load image:%s' % path)
     img = scipy.misc.imread(path)
-    img = img[:, :, :3]
-    x, y, z = img.shape
+    if len(img.shape) == 3:
+        x, y, z = img.shape
+        img = img[:, :, :3]
+    else:
+        x, y = img.shape
     return img, x, y
 
 for filename in sys.argv[1:]:
