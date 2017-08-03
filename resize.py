@@ -58,7 +58,7 @@ for file_path in imgs:
 
     try:
         i = i.crop((x, y, w, h))
-    except:
+    except BaseException:
         print('error:%s' % file_path)
         a = 1 / 0
 
@@ -73,14 +73,14 @@ for file_path in imgs:
         _crop = (0, 2 * a, w, h)
     elif w * target_height > h * target_width:
         a = (w - h * target_width / target_height) / 2
-        _crop = (a,  0, w - a, h)
+        _crop = (a, 0, w - a, h)
     else:
         # top_
         _crop = (0, 0, w, w * target_height / target_width)
 
     try:
         i2 = i.crop(_crop)
-    except:
+    except BaseException:
         print(file_path)
         a = 1 / 0
     i3 = i2.resize((target_width, target_height), Image.ANTIALIAS)

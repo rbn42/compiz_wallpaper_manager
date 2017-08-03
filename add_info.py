@@ -19,6 +19,7 @@ def load_img(path):
         x, y = img.shape
     return img, x, y
 
+
 for filename in sys.argv[1:]:
     info = imginfo.load(filename)
 

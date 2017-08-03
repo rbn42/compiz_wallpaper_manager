@@ -4,7 +4,7 @@
 Greet
 
 Usage:
-  main.py <path_root> 
+  main.py <path_root>
   main.py -h | --help
 
 Options:

@@ -32,5 +32,6 @@ def getconfig(num=1, root='.'):
         #"cycle-wallpapers": "false",
     }
 
+
 if __name__ == '__main__':
     print(getconfig(10))

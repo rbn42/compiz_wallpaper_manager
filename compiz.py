@@ -39,6 +39,7 @@ def f(key, val):
     cmd = DCONF_ROOT % (key, val)
     print(cmd)
 
+
 SHORTCUT_ROOT = '/dev/shm/w1', '/dev/shm/w2',
 if config.COMPIZ0_8:
     if os.path.exists(SHORTCUT_ROOT[0]):

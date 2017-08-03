@@ -4,7 +4,7 @@
 Greet
 
 Usage:
-  main.py <input_root>  <output_root> (left|right)  
+  main.py <input_root>  <output_root> (left|right)
   main.py -h | --help
 
 Options:
@@ -38,6 +38,7 @@ def f(p_src, p_dst, left=False):
             i = np.flipud(i)
     #    i=scipy.misc.imrotate(i,90)
         scipy.misc.imsave(p_dst + n, i)
+
 
 from docopt import docopt
 arguments = docopt(__doc__)
