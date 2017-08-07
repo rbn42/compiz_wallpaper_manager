@@ -3,8 +3,7 @@
 #* * * * *   bash ~/Pictures/compiz/bin/compiz.sh
 
 #壁纸目录
-export WALLPAPER_ROOT=~/Pictures/compiz
-source ~/config/rc/displayrc
+WALLPAPER_ROOT="$1"
 
 #加载壁纸
 python $(dirname "$0")/compiz.py $WALLPAPER_ROOT | bash
