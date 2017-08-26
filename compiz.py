@@ -40,7 +40,7 @@ def f(key, val):
     print(cmd)
 
 
-SHORTCUT_ROOT = '/dev/shm/w1', '/dev/shm/w2',
+SHORTCUT_ROOT = '/run/user/%d/w1'%os.getuid(), '/run/user/%d/w2'%os.getuid(),
 if config.COMPIZ0_8:
     if os.path.exists(SHORTCUT_ROOT[0]):
         SHORTCUT_ROOT1, SHORTCUT_ROOT2 = SHORTCUT_ROOT
