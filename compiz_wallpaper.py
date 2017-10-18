@@ -6,7 +6,7 @@ import subprocess
 import re
 
 
-def getconfig(num=1, root='.'):
+def getconfig(num=1, root='.', randomize=True):
 
     cmd = "xrandr --query --verbose"
     s = subprocess.check_output(cmd, shell=True).decode()
@@ -31,7 +31,9 @@ def getconfig(num=1, root='.'):
         for n in ll:
             n = os.path.abspath(n)
             imgs.append(n)
-    random.shuffle(imgs)
+    imgs.sort()
+    if randomize:
+        random.shuffle(imgs)
     imgs = imgs[:num]
 
     # compiz wallpaper

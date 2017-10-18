@@ -1,8 +1,17 @@
+"""
+compiz.py
+
+Usage:
+  compiz.py [options] <root>
+
+Options:
+  --randomize       randomize images' positions
+"""
+from docopt import docopt
 import config
 from compiz_wallpaper import getconfig
 import os.path
 import execute
-import sys
 import shlex
 
 
@@ -40,7 +49,7 @@ def f(key, val):
     print(cmd)
 
 
-SHORTCUT_ROOT = '/run/user/%d/w1'%os.getuid(), '/run/user/%d/w2'%os.getuid(),
+SHORTCUT_ROOT = '/run/user/%d/w1' % os.getuid(), '/run/user/%d/w2' % os.getuid(),
 if config.COMPIZ0_8:
     if os.path.exists(SHORTCUT_ROOT[0]):
         SHORTCUT_ROOT1, SHORTCUT_ROOT2 = SHORTCUT_ROOT
@@ -52,7 +61,11 @@ if config.COMPIZ0_8:
 h = execute.execute_and_output(cmd_getsize_h)
 v = execute.execute_and_output(cmd_getsize_v)
 h, v = int(h if len(h) > 0 else 1), int(v if len(v) > 0 else 1)
-_map = getconfig(h * v, root=sys.argv[1])
+
+arguments = docopt(__doc__)
+_map = getconfig(h * v,
+                 root=arguments['<root>'],
+                 randomize=arguments['--randomize'])
 for n in _map:
     v = _map[n]
     f(n, v)
