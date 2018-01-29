@@ -14,8 +14,10 @@ def getconfig(num=1, root='.', randomize=True):
         if 'disconnected' not in line:
             if 'connected' in line:
                 r = '\) (.+) \('
-                orientation = re.findall(r, line)[0]
-                break
+                l = re.findall(r, line)
+                if len(l) > 0:
+                    orientation = l[0]
+                    break
 
     # find images
     exts = 'jpg', 'jpeg', 'png', 'gif'
