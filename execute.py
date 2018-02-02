@@ -11,7 +11,7 @@ def execute_and_output(cmd):
     t0 = time.time()
     s = subprocess.check_output(cmd, shell=True).decode(ENCODING)
     t1 = time.time()
-#    print('%s:%s' % (t1 - t0, cmd))
+    #    print('%s:%s' % (t1 - t0, cmd))
     return s
 
 

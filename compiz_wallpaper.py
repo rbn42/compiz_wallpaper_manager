@@ -45,7 +45,7 @@ def getconfig(num=1, root='.', randomize=True):
         "bg-fill-type": [0] * len(imgs),
         "bg-image": imgs,
         "bg-image-pos": [0] * len(imgs),
-        #"cycle-wallpapers": "false",
+    #"cycle-wallpapers": "false",
     }
 
 

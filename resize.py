@@ -33,7 +33,6 @@ for ll in l:
     for n in ll:
         imgs.append(n)
 
-
 for file_path in imgs:
     _, file_name = os.path.split(file_path)
     if 'info' in file_name:
@@ -46,7 +45,7 @@ for file_path in imgs:
 
     i = Image.open(file_path)
 
-    preserve = 1  # 消除边缘，有些图可能边缘有问题
+    preserve = 1    # 消除边缘，有些图可能边缘有问题
     w, h = i.size
     x, y, w, h = 1, 1, w - 2, h - 2
 

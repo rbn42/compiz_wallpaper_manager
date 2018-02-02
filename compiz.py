@@ -14,7 +14,6 @@ import os.path
 import execute
 import shlex
 
-
 if config.COMPIZ_ALONE:
     DCONF_ROOT = 'dconf write /org/compiz/profiles/Default/plugins/wallpaper/%s "%s"'
     cmd_getsize_h = 'dconf read /org/compiz/profiles/Default/plugins/core/hsize'
@@ -38,8 +37,7 @@ def f(key, val):
             shortcuts = []
             for path in val:
                 count += 1
-                p_shortcut = '%s/%0.3d%s' % (SHORTCUT_ROOT2,
-                                             count, os.path.splitext(path)[1])
+                p_shortcut = '%s/%0.3d%s' % (SHORTCUT_ROOT2, count, os.path.splitext(path)[1])
                 print('ln -s %s %s' % (shlex.quote(path), p_shortcut))
                 #print('cp "%s" %s' % (path, p_shortcut))
                 shortcuts.append(p_shortcut)
@@ -63,9 +61,7 @@ v = execute.execute_and_output(cmd_getsize_v)
 h, v = int(h if len(h) > 0 else 1), int(v if len(v) > 0 else 1)
 
 arguments = docopt(__doc__)
-_map = getconfig(h * v,
-                 root=arguments['<root>'],
-                 randomize=arguments['--randomize'])
+_map = getconfig(h * v, root=arguments['<root>'], randomize=arguments['--randomize'])
 for n in _map:
     v = _map[n]
     f(n, v)
