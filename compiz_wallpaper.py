@@ -21,7 +21,7 @@ def getconfig(num=1, root='.', randomize=True):
 
     # find images
     exts = 'jpg', 'jpeg', 'png', 'gif'
-    if 'normal' == orientation:
+    if 'normal' == orientation or 'inverted'==orientation:
         l = [glob.glob(root + '/raw_/*.' + n) for n in exts]
         l += [glob.glob(root + '/resize/*.' + n) for n in exts]
     elif 'right' == orientation:
